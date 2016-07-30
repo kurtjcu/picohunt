@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Required meta tags-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <!-- Your app title -->
+    <title>Map Search | Pictohunt </title>
+ <link rel="stylesheet" href="/css/framework7.comb.css">
+ <style>
+ element.style {
+    background-color: #e5e3df;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+</style>
+
+  </head>
+  <body>
+    <!-- Status bar overlay for full screen mode (PhoneGap) -->
+    <div class="statusbar-overlay"></div>
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+     <div class="content-block-title rvtitle">Pictohunt</div>
+      <div class="list-block"></div>
+    </div>
+    <!-- Views -->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class -->
+      <div class="view view-main">
+        <!-- Top Navbar-->
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left sliding"><a href="#" class="back link"><i class="icon icon-back"></i><span>Back</span></a></div>
+    <div class="center sliding">Your location</div>
+    <div class="right">
+    			<a class="link icon-only prompt-title-ok" href="#"><i class="icon-search"></i></a>
+              <a href="#" class="link icon-only open-panel"><i class="icon icon-menu"></i></a>
+    </div>
+  </div>
+</div>
+<div class="pages navbar-through">
+  <div data-page="cards" class="page" id="cards">
+    <div class="page-content">
+      
+        <div style="width:100%;height:100%">
+         <div id="map" style="height:100%"></div>
+        </div>
+     
+  
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="/js/my-app.js"></script>
+  
+  
+<script>
+
+var markers = [];
+var infowindows = [];
+var mydata =[];
+var map;
+var thisPoints =[];
+function allmarkers(m){
+
+
+
+
+
+
+}
+
+function updatemarkers(data){
+deleteMarkers();
+//console.log(data);
+for(var i = 0; i < data.length; i++){
+d=data[i];
+//console.log(d);
+pos=d['l'].split(',');
+//console.log(pos);
+thisPoints[i] = {lat: parseFloat(pos[0]), lng: parseFloat(pos[1])};
+//console.log(thisPoint);
+ var tmarker = new google.maps.Marker({
+          position: thisPoints[i],
+          map: map
+         ,title: d['t']
+        });
+        infowindows[i] = new google.maps.InfoWindow({
+          content: d['d'],
+          maxWidth: 200,
+          position: thisPoints[i]
+        });
+	tmarker['index']=i;
+       tmarker.addListener('click', function() {
+       console.log(this['index']);
+          infowindows[this['index']].open(map, markers[this['index']]);
+        });
+     //  tmarker.setMap(map);
+markers.push(tmarker);
+
+}
+showMarkers();
+}
+
+// Adds a marker to the map and push to the array.
+function addMarker(location) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  markers.push(marker);
+}
+
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+  setMapOnAll(map);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
+  infowindows = [];
+  thisPoints =[];
+}
+
+
+var timer;
+      function initMap() {
+        var thisPoint = {lat: -33.0919447, lng: 148.8684744};
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: thisPoint
+        });
+
+map.addListener('idle', function(m){
+
+// console.log(map.getBounds().toJSON());
+// console.log(map.getBounds().toString());
+ var spherical = google.maps.geometry.spherical, 
+    bounds = map.getBounds(), 
+    cor1 = bounds.getNorthEast(), 
+    cor2 = bounds.getSouthWest(), 
+    cor3 = new google.maps.LatLng(cor2.lat(), cor1.lng()), 
+    cor4 = new google.maps.LatLng(cor1.lat(), cor2.lng()), 
+    width = spherical.computeDistanceBetween(cor1,cor3), 
+    height = spherical.computeDistanceBetween( cor1, cor4),
+    w = Math.round(Math.min(width,height)/1000),
+    u='c='+(map.getCenter().toString()).replace(/[ \(\)]/g,'')+'&d='+w;
+    // &latlong=-27,153&dist=50
+  
+
+});
+
+
+ var contentString = '<div id="content"><div class="siteNotice"></div><h3 id="firstHeading" class="firstHeading">100 Mile Dinner</h3><div id="bodyContent"><p> The F.O.O.D Week Committee and the people of Molong welcome guests to the iconic 100 Mile Dinner, under the stars on the Village Green in Molong. The dinner features... <a href="/nsw/events/100-mile-dinner.html">Read more</a></p></div></div>';
+
+        var marker = new google.maps.Marker({
+          position: thisPoint,
+          map: map,
+          title: '100 Mile Dinner'
+        });
+         var infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          maxWidth: 200
+        }).open(map, marker);
+
+       marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+        
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFlXj1MC8D1tlPKXZ5SdNpm0duzTIiPi0&callback=initMap&libraries=geometry">
+    </script>
+
+</body>
+</html>        
