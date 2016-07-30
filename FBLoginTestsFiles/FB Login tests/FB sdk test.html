@@ -20,6 +20,8 @@
             if (response.status === 'connected') {
                 // Logged into your app and Facebook.
                 uid = response.authResponse.userID;
+                document.getElementById('uid').innerHTML = uid;
+
                 testAPI();
             } else if (response.status === 'not_authorized') {
                 // The person is logged into Facebook, but not your app.
@@ -29,6 +31,7 @@
                 // The person is not logged into Facebook, so we're not sure if
                 // they are logged into this app or not.
                 uid = null;
+                document.getElementById('uid').innerHTML = uid;
                 document.getElementById('status').innerHTML = 'Please log ' +
                     'into Facebook.';
             }
@@ -137,6 +140,8 @@
     <button onclick="javascript:Share();">Share on Facebook</button>
 
     <div id="status">
+    </div>
+    <div id="uid">
     </div>
 
 </body>
