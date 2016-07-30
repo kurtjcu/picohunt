@@ -88,6 +88,12 @@
             });
         }
 
+        function Logout() {
+            FB.logout(function(response) {
+              document.getElementById('status').innerHTML = 'You have now logged out...';
+            });
+        }
+
         function Login() {
             FB.login(function(response) {
                 if (response.status === 'connected') {
@@ -118,7 +124,7 @@
     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
     </fb:login-button>
 
-    <input type="button" value="Login" onclick="Login();" />
+    <button onclick="javascript:Logout();">Logout from Facebook</button>
 
     <div id="status">
     </div>
