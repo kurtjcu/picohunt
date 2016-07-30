@@ -2,39 +2,71 @@
 <html>
 
 <head>
-    <title>Facebook Login JavaScript Example</title>
+    <title>WKT polygon creation</title>
     <meta charset="UTF-8">
+    <script src="papaparse.js"></script>
+    <script src="CreatePolygon.js"></script>
 </head>
 
 <body>
     <script>
-        var lat = -16.869750;
-        var lon = 145.6944433;
-        var size = .005; //.01 = approx 1klm from origin
-        var PolyString;
-        var polAns = "none";
+        var csvURL = "http://biocache.ala.org.au/ws/occurrences/facets/download?q=macropus&wkt=POLYGON%28%28145%20-37%2C150%20-37%2C150%20-30%2C145%20-30%2C145%20-37%29%29&facets=taxon_concept_lsid&lookup=true&count=true"
 
-
-        function CreatePolygon() {
-
-            var pola = (lat - size) + " " + (lon + size);
-            var polb = (lat + size) + " " + (lon + size);
-            var polc = (lat + size) + " " + (lon - size);
-            var pold = (lat - size) + " " + (lon - size);
-
-            polAns = pola + " " + polb + " " + polc + " " + pold
-
+        function getPoly() {
+            CreatePolygon(pLat, pLon, pSize)
             console.log(polAns);
-            document.getElementById('status').innerHTML = polAns;
+            document.getElementById('answer').innerHTML = polAns;
+            document.getElementById('polyString').innerHTML = PolyString;
         }
+
+        /*
+                function getSpecies() {
+                    Papa.parse("
+                        http: //biocache.ala.org.au/ws/occurrences/facets/download?q=macropus&wkt=POLYGON%28%28145%20-37%2C150%20-37%2C150%20-30%2C145%20-30%2C145%20-37%29%29&facets=taxon_concept_lsid&lookup=true&count=true", {
+                        download: true,
+                        complete: function(results) {
+                            console.log(results);
+                        }
+                    });
+                }
+        */
+
+        function doStuff(data) {
+            //Data is usable here
+            console.log(data);
+        }
+
+        function parseData(url, callBack) {
+            Papa.parse(url, {
+                download: true,
+                dynamicTyping: true,
+                complete: function(results) {
+                    callBack(results.data);
+                }
+            });
+        }
+
+        parseData(csvURL, doStuff);
     </script>
+    <ul>
+        <li>
+            <button onclick="javascript:getPoly();">CreatePolygon</button>
+        </li>
 
-    <button onclick="javascript:CreatePolygon();">CreatePolygon</button>
-
+        <li>
+            <button onclick="javascript:getSpecies();">Get Species
+        </li>
+    </ul>
 
     <div id="answer">
     </div>
+    <div id="polyString">
+    </div>
 
+    <!--POLYGON((145 -37,150 -37,150 -30,145 -30,145 -37))-->
+
+    <div id="JSON">
+    </div>
 
 </body>
 

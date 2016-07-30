@@ -21,3 +21,4 @@ http: //biocache.ala.org.au/ws/explore/groups?lat=-16.869750&lon=145.6944433&rad
 
 // retrieve by kingdom ??
 http://biocache.ala.org.au/ws/occurrences/search?
+http://biocache.ala.org.au/ws/occurrence/facets?q=data_resource_uid:dr359&facets=taxon_name&lat=-16.869750&lon=145.6944433&radius=1
