@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Facebook Login JavaScript Example</title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <script>
+        var lat = -16.869750;
+        var lon = 145.6944433;
+        var size = .005; //.01 = approx 1klm from origin
+        var PolyString;
+        var polAns = "none";
+
+
+        function CreatePolygon() {
+
+            var pola = (lat - size) + " " + (lon + size);
+            var polb = (lat + size) + " " + (lon + size);
+            var polc = (lat + size) + " " + (lon - size);
+            var pold = (lat - size) + " " + (lon - size);
+
+            polAns = pola + " " + polb + " " + polc + " " + pold
+
+            console.log(polAns);
+            document.getElementById('status').innerHTML = polAns;
+        }
+    </script>
+
+    <button onclick="javascript:CreatePoly();">CreatePolygon</button>
+
+
+    <div id="answer">
+    </div>
+
+
+</body>
+
+</html>
