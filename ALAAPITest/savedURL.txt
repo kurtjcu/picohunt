@@ -1,0 +1,2 @@
+// retrieves species groups and counts using a specific lat and long
+http://biocache.ala.org.au/ws/explore/groups?{lat:%22-16.869750%22}{long:%22145.6944433%22}
