@@ -8,7 +8,6 @@
 
 <body>
     <script>
-
         var uid;
         // This is called with the results from from FB.getLoginStatus().
         function statusChangeCallback(response) {
@@ -88,13 +87,13 @@
             FB.api('/me', function(response) {
                 console.log('Successful login for: ' + response.name);
                 document.getElementById('status').innerHTML =
-                    'Thanks for logging in, ' + response.name + '!' + "userID = " +uid;
+                    'Thanks for logging in, ' + response.name + '!' + "userID = " + uid;
             });
         }
 
         function Logout() {
             FB.logout(function(response) {
-              document.getElementById('status').innerHTML = 'You have now logged out...';
+                document.getElementById('status').innerHTML = 'You have now logged out...';
             });
         }
 
@@ -117,6 +116,14 @@
             });
 
         }
+
+        function Share() {
+            FB.ui({
+                method: 'share',
+                href: 'https://developers.facebook.com/docs/',
+                testAPI();
+            }, function(response) {});
+        }
     </script>
 
     <!--
@@ -127,8 +134,13 @@
 
     <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
     </fb:login-button>
+    <p>
+        <button onclick="javascript:Logout();">Logout from Facebook</button>
+    </p>
 
-    <button onclick="javascript:Logout();">Logout from Facebook</button>
+    <p>
+        <button onclick="javascript:Share();">Share on Facebook</button>
+    </p>
 
     <div id="status">
     </div>
