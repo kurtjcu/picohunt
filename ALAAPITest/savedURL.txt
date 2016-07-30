@@ -1,2 +1,14 @@
 // retrieves species groups and counts using a specific lat and long
-http://biocache.ala.org.au/ws/explore/groups?{lat:%22-16.869750%22}{long:%22145.6944433%22}
+http: //biocache.ala.org.au/ws/explore/groups?lat=-16.869750&lon=145.6944433&radius=1
+//what comes back
+    [{
+        speciesCount: 277,
+        level: 0,
+        count: 1294,
+        name: "ALL_SPECIES"
+    }, -{
+        speciesCount: 277,
+        level: 0,
+        count: 1294,
+        name: "ALL_SPECIES"
+    }]
