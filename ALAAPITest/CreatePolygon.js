@@ -14,6 +14,6 @@ function CreatePolygon(lat, lon, size) {
 
     polAns = pola + "," + polb + "," + polc + "," + pold + "," + pola;
 
-    PolyString = "POLYGON((" + polAns + "))";
+    PolyString = "wkt=POLYGON((" + polAns + "))";
 
 }
