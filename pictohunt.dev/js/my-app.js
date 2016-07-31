@@ -263,14 +263,14 @@ function showPosition(position) {
     
     if (relsize==0) relsize = value['speciesCount'];
     // style=\"font-size:"+(value['speciesCount']/relsize*maxsize)+"px\"
-    report+="<span >"+ value['name'] +" <i class=\"badge\">"+value['speciesCount']+"</i></span> ";
+    report+="<h3 >"+ value['name'] +" <i class=\"badge\">"+value['speciesCount']+"</i></h3> ";
     
     })
     
     var popupHTML = '<div class="popup">'+
-                    '<div class="content-block">'+
+                    '<div class="content-block"><p><a href="#" class="close-popup">Close me</a></p>'+
                       '<p>'+report+'</p>'+
-                      '<p><a href="#" class="close-popup">Close me</a></p>'+
+                      ''+
                     '</div>'+
                   '</div>'
   myApp.popup(popupHTML);
@@ -323,6 +323,7 @@ myApp.onPageInit('dashboard', function (page) {
  $$.get('user.php', {}, function (data) {
   $$('#dashcontent').html(data);
    myApp.hidePreloader();
+   $$('lazy').trigger('lazy');
 });
 })
 
@@ -335,6 +336,10 @@ myApp.onPageInit('match', function (page) {
      
      
      // allspecies
+     
+     $$.get('match.php' , {img:location.hash.split("?")[1].trim()}, function (data) {
+  $$('#preview').html(data);
+});
      
      
      var spiecespick=[];

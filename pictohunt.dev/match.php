@@ -7,7 +7,7 @@ session_start();
 
 
 
-$id = isset($_GET['id']) ? trim($_GET['id']) : "3elP";
+$id = $_SESSION['user']['id'];
 
 
 //
@@ -37,14 +37,11 @@ file_put_contents($userconfigfile,json_encode( array("joined"=>date("Y-m-d H:i")
 $config = json_decode(file_get_contents($userconfigfile),1);
 
 
+if(isset($_GET['img'])) {
 
+exit("<img src=\"".$config['photos'][$_GET['img']]['f']."\" >");
 
-echo("<pre>ID=$id\nREALID=$realid\n");
-
-print_r($config);
-
-echo("</pre>");
-
+}
 
 
 

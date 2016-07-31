@@ -14,6 +14,21 @@
     <script src="https://use.fontawesome.com/8371a3e53a.js"></script>
     <style>
     .subnavbar {height:auto;}
+    .pic-container {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    padding-bottom: 65%;
+    position: relative;
+}
+.pic-container div, .pic-container4x3 div, .pic-container16x9 div {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+#preview img {height:150px}
     </style>
   </head>
   <body>
@@ -128,7 +143,7 @@
               <div class="content-block-title">Welcome Pictohunt App</div>
               <div class="content-block">
                 <div class="content-block-inner">
-                  <p>TEXT  Duis sed erat ac eros ultrices pharetra id ut tellus. Praesent rhoncus enim ornare ipsum aliquet ultricies. Pellentesque sodales erat quis elementum sagittis.</p>
+                  <p>Unlike chasing augmented beings in an alternate universe PictoHunt chases real animals, birds and plants. Players can form teams and compete while at the same time assisting in the collection of more data to help better manage our natural environment</p>
                 </div>
               </div>
              
@@ -136,7 +151,7 @@
               <div class="content-block-title" id="status"></div>
               <div class="content-block">
               
-               <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+               <fb:login-button id="fbloginbutton" scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
               
               
                 <div class="row">
@@ -150,7 +165,7 @@
         </div>
         <!-- Bottom Toolbar-->
         <div class="toolbar">
-          <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
+          <!-- <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div> -->
         </div>
       </div>
     </div>
@@ -245,6 +260,7 @@
             FB.api('/me', function(response) {
             console.log(response);
                 console.log('Successful login for: ' + response.name);
+                $$('#fbloginbutton').hide();
                 
                 $$.get('login.php', {name: response.name ,uid: uid, lat: lat, lon: lon, radius: radius}, function (data) {
   $$('#status').html(data);

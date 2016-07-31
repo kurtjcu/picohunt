@@ -39,7 +39,7 @@ $ifp = fopen($basedir.$imagefilename, "wb");
     fclose($ifp); 
 
 
-$config['photos'][$config['counter']]=array('f'=>$imagefilename);
+$config['photos'][$config['counter']]=array('f'=>$imagefilename,'lat'=>$_SESSION['lat'],'lon'=>$_SESSION['lon'],'radius'=>$_SESSION['radius']);
 
 // save config
 
