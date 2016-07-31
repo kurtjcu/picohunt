@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WKT polygon creation</title>
+    <meta charset="UTF-8">
+    <script src="papaparse.js"></script>
+    <script src="CreatePolygon.js"></script>
+</head>
+
+<body>
+    <script>
+        var csvURL = "https://crossorigin.me/https://biocache.ala.org.au/ws/occurrences/facets/download?q=Birds&wkt=POLYGON%28%28145%20-37%2C150%20-37%2C150%20-30%2C145%20-30%2C145%20-37%29%29&facets=taxon_concept_lsid,image_url&lookup=true&count=true"
+        var csvURL2 = "https://crossorigin.me/https://biocache.ala.org.au/ws/occurrences/facets/download?q=macropus&wkt=POLYGON%28%28145%20-37%2C150%20-37%2C150%20-30%2C145%20-30%2C145%20-37%29%29&facets=taxon_concept_lsid&lookup=true&count=true"
+
+        var csvURLPar01 = "https://crossorigin.me/https://biocache.ala.org.au/ws/occurrences/facets/download?";
+        var csvURLPar02 = "&facets=image_url&lookup=true&count=true";
+
+        function getPoly() {
+            CreatePolygon(pLat, pLon, pSize)
+            console.log(polAns);
+            document.getElementById('answer').innerHTML = polAns;
+            document.getElementById('polyString').innerHTML = PolyString;
+        }
+
+        function getPolyWholeString() {
+          CreatePolygon(pLat,pLon, pSize);
+          return PolyString;
+        }
+
+        /*
+                function getSpecies() {
+                    Papa.parse("
+                        http: //biocache.ala.org.au/ws/occurrences/facets/download?q=macropus&wkt=POLYGON%28%28145%20-37%2C150%20-37%2C150%20-30%2C145%20-30%2C145%20-37%29%29&facets=taxon_concept_lsid&lookup=true&count=true", {
+                        download: true,
+                        complete: function(results) {
+                            console.log(results);
+                        }
+                    });
+                }
+        */
+
+        function doStuff(data) {
+            //Data is usable here
+            console.log(data);
+        }
+
+        function parseData(url, callBack) {
+            Papa.parse(url, {
+                download: true,
+                dynamicTyping: true,
+                complete: function(results) {
+                    callBack(results.data);
+                }
+            });
+        }
+
+        parseData(csvURLPar01 + getPolyWholeString() + csvURLPar02, doStuff);
+    </script>
+    <ul>
+        <li>
+            <button onclick="javascript:getPoly();">CreatePolygon</button>
+        </li>
+
+        <li>
+            <button onclick="javascript:getSpecies();">Get Species
+        </li>
+    </ul>
+
+    <div id="answer">
+    </div>
+    <div id="polyString">
+    </div>
+
+    <!--POLYGON((145 -37,150 -37,150 -30,145 -30,145 -37))-->
+
+    <div id="JSON">
+    </div>
+
+</body>
+
+</html>
