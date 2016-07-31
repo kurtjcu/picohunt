@@ -5,7 +5,7 @@ require_once("lib/config.php");
 session_start();
 
 
-
+// $_SESSION['user']['loc']
 
 $id = isset($_GET['id']) ? trim($_GET['id']) : "3elP";
 

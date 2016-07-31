@@ -46,6 +46,6 @@ $config['photos'][$config['counter']]=array('f'=>$imagefilename);
 file_put_contents($userconfigfile,json_encode($config));
 
 
-echo("$imagefilename");
+echo("{\"img\":\"$imagefilename\"}");
 
 ?>

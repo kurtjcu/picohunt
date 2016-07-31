@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
     <!-- Path to your custom app styles-->
     <link rel="stylesheet" href="css/my-app.css">
+    <script src="https://use.fontawesome.com/8371a3e53a.js"></script>
+    <style>
+    .subnavbar {height:auto;}
+    </style>
   </head>
   <body>
     <!-- Status bar overlay for fullscreen mode-->
@@ -18,9 +22,81 @@
     <!-- Panels overlay-->
     <div class="panel-overlay"></div>
     <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-reveal">
+    <div class="panel panel-left panel-reveal layout-dark">
       <div class="content-block">
-        <p>Left panel content goes here</p>
+        <p>Pictohunt Menu</p>
+        <div class="list-block">
+        <ul>
+     
+        <li><a class="item-link close-panel" href="/dashboard.html">
+<div class="item-content">
+<div class="item-media"><i class="fa fa-tachometer" aria-hidden="true"></i></div>
+<div class="item-inner">
+<div class="item-title">Dashboard</div>
+</div>
+</div></a></li>
+
+     <li><a class="item-link close-panel" href="/map.html">
+<div class="item-content">
+<div class="item-media"><i class="fa fa-street-view" aria-hidden="true"></i></div>
+<div class="item-inner">
+<div class="item-title">Map ~ Location</div>
+</div>
+</div></a></li>
+
+   <li><a class="item-link close-panel" href="/photo.html">
+<div class="item-content">
+<div class="item-media"><i class="fa fa-camera" aria-hidden="true"></i></div>
+<div class="item-inner">
+<div class="item-title">Camera</div>
+</div>
+</div></a></li>
+
+ <li><a class="item-link close-panel" href="/match.html">
+<div class="item-content">
+<div class="item-media"><i class="fa fa-search" aria-hidden="true"></i></div>
+<div class="item-inner">
+<div class="item-title">Find match</div>
+</div>
+</div></a></li>
+
+    <li><a class="item-link close-panel" href="/trophy.html">
+<div class="item-content">
+<div class="item-media"><i class="fa fa-trophy" aria-hidden="true"></i></div>
+<div class="item-inner">
+<div class="item-title">Trophy</div>
+</div>
+</div></a></li>
+
+<li><a class="item-link close-panel" href="/reviews.html">
+<div class="item-content">
+<div class="item-media"><i class="fa fa-check-square" aria-hidden="true"></i></div>
+<div class="item-inner">
+<div class="item-title">Reviews</div>
+</div>
+</div></a></li>
+
+<li><a class="item-link close-panel" href="/statistics.html">
+<div class="item-content">
+<div class="item-media"><i class="fa fa-database" aria-hidden="true"></i></div>
+<div class="item-inner">
+<div class="item-title">Statistics</div>
+</div>
+</div></a></li>
+
+<li><a class="item-link close-panel" href="/about.html">
+<div class="item-content">
+<div class="item-media"><i class="fa fa-question-circle" aria-hidden="true"></i></div>
+<div class="item-inner">
+<div class="item-title">About</div>
+</div>
+</div></a></li>
+
+
+
+        
+        </ul>
+        </div> 
       </div>
     </div>
     <!-- Right panel with cover effect-->
@@ -55,33 +131,16 @@
                   <p>TEXT  Duis sed erat ac eros ultrices pharetra id ut tellus. Praesent rhoncus enim ornare ipsum aliquet ultricies. Pellentesque sodales erat quis elementum sagittis.</p>
                 </div>
               </div>
-              <div class="content-block-title">What about simple navigation?</div>
-              <div class="list-block">
-                <ul>
-                  <li><a href="about.html" class="item-link">
-                      <div class="item-content">
-                        <div class="item-inner"> 
-                          <div class="item-title">About</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="services.html" class="item-link">
-                      <div class="item-content"> 
-                        <div class="item-inner">
-                          <div class="item-title">Services</div>
-                        </div>
-                      </div></a></li>
-                  <li><a href="form.html" class="item-link">
-                      <div class="item-content"> 
-                        <div class="item-inner">
-                          <div class="item-title">Form</div>
-                        </div>
-                      </div></a></li>
-                </ul>
-              </div>
-              <div class="content-block-title">Side panels</div>
+             
+              <div class="content-block-title">Status</div>
+              <div class="content-block-title" id="status"></div>
               <div class="content-block">
+              
+               <fb:login-button scope="public_profile,email" onlogin="checkLoginState();"></fb:login-button>
+              
+              
                 <div class="row">
-                  <div class="col-100"><a href="/map.html" data-panel="left" class="button link external">Map</a></div>
+                  <div class="col-100"><a href="/map.html" data-panel="left" class="button link ">Map</a></div>
                   <div class="col-100"><a href="/photo.html" data-panel="left" class="button link ">photo</a></div>
 
                 </div>
@@ -99,5 +158,139 @@
     <script type="text/javascript" src="js/framework7.min.js"></script>
     <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
+    
+   
+   
+   
+       <script>
+        var uid;
+        // This is called with the results from from FB.getLoginStatus().
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            // The response object is returned with a status field that lets the
+            // app know the current login status of the person.
+            // Full docs on the response object can be found in the documentation
+            // for FB.getLoginStatus().
+            if (response.status === 'connected') {
+                // Logged into your app and Facebook.
+                uid = response.authResponse.userID;
+               // document.getElementById('uid').innerHTML = uid;
+
+                testAPI();
+            } else if (response.status === 'not_authorized') {
+                // The person is logged into Facebook, but not your app.
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into this app.';
+            } else {
+                // The person is not logged into Facebook, so we're not sure if
+                // they are logged into this app or not.
+                uid = null;
+                document.getElementById('uid').innerHTML = uid;
+                document.getElementById('status').innerHTML = 'Please log ' +
+                    'into Facebook.';
+            }
+        }
+
+        // This function is called when someone finishes with the Login
+        // Button.  See the onlogin handler attached to it in the sample
+        // code below.
+        function checkLoginState() {
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+        }
+
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '1093134777420318',
+                cookie: true, // enable cookies to allow the server to access
+                // the session
+                xfbml: true, // parse social plugins on this page
+                version: 'v2.5' // use graph api version 2.5
+            });
+
+            // Now that we've initialized the JavaScript SDK, we call
+            // FB.getLoginStatus().  This function gets the state of the
+            // person visiting this page and can return one of three states to
+            // the callback you provide.  They can be:
+            //
+            // 1. Logged into your app ('connected')
+            // 2. Logged into Facebook, but not your app ('not_authorized')
+            // 3. Not logged into Facebook and can't tell if they are logged into
+            //    your app or not.
+            //
+            // These three cases are handled in the callback function.
+
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+
+        };
+
+        // Load the SDK asynchronously
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // Here we run a very simple test of the Graph API after login is
+        // successful.  See statusChangeCallback() for when this call is made.
+        function testAPI() {
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me', function(response) {
+            console.log(response);
+                console.log('Successful login for: ' + response.name);
+                
+                $$.get('login.php', {name: response.name ,uid: uid, lat: lat, lon: lon, radius: radius}, function (data) {
+  $$('#status').html(data);
+});
+                
+//                document.getElementById('status').innerHTML =     'Thanks for logging in, ' + response.name + '!' + "userID = " + uid;
+            });
+        }
+
+        function Logout() {
+            FB.logout(function(response) {
+                document.getElementById('status').innerHTML = 'You have now logged out...';
+            });
+        }
+
+        function Login() {
+            FB.login(function(response) {
+                if (response.status === 'connected') {
+                    testAPI();
+                    alert("connected");
+                    // Logged into your app and Facebook.
+                } else if (response.status === 'not_authorized') {
+                    // The person is logged into Facebook, but not your app.
+                    alert("Not Authorized");
+                    testAPI();
+                } else {
+                    // The person is not logged into Facebook, so we're not sure if
+                    // they are logged into this app or not.
+                    alert("dunno...");
+                    testAPI();
+                }
+            });
+
+        }
+
+        function Share(url) {
+            FB.ui({
+                method: 'share',
+                href: url,
+            }, function(response) {});
+        }
+    </script>
+    
+    
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFlXj1MC8D1tlPKXZ5SdNpm0duzTIiPi0&callback=initMap&libraries=geometry">
+    </script>
+    
   </body>
 </html>
