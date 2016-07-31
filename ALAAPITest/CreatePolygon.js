@@ -7,10 +7,10 @@ var polAns = "none";
 
 function CreatePolygon(lat, lon, size) {
 
-    var pola = (lat - size) + " " + (lon + size);
-    var polb = (lat + size) + " " + (lon + size);
-    var polc = (lat + size) + " " + (lon - size);
-    var pold = (lat - size) + " " + (lon - size);
+    var pola = (lon - size).toFixed(3) + " " + (lat - size).toFixed(3);
+    var polb = (lon + size).toFixed(3) + " " + (lat - size).toFixed(3);
+    var polc = (lon + size).toFixed(3) + " " + (lat + size).toFixed(3);
+    var pold = (lon - size).toFixed(3) + " " + (lat + size).toFixed(3);
 
     polAns = pola + "," + polb + "," + polc + "," + pold + "," + pola;
 
