@@ -22,3 +22,6 @@ http: //biocache.ala.org.au/ws/explore/groups?lat=-16.869750&lon=145.6944433&rad
 // retrieve by kingdom ??
 http://biocache.ala.org.au/ws/occurrences/search?
 http://biocache.ala.org.au/ws/occurrence/facets?q=data_resource_uid:dr359&facets=taxon_name&lat=-16.869750&lon=145.6944433&radius=1
+
+// looks at all birds in area and returns list of lsid
+http://biocache.ala.org.au/ws/occurrence/facets?q=class:Aves&facets=taxon_name,lsid&lat=-16.869750&lon=145.6944433&radius=1&flimit=5
